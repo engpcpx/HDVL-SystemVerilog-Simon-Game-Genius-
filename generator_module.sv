@@ -6,7 +6,7 @@
     Module Name: generator_module
     Project Name: PBL1_Genius_Project
     Target Devices: FPGA
-    Tool Versions: Xilinx Vivado 2025
+    Tool Versions: Xilinx Vivado 2024.1
     Description: Generator module for generate a pseudo-random number 
                 between 1 and 4 when triggered.
     

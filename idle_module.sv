@@ -7,7 +7,7 @@ Additional Comments:
     Module Name: idle_module
     Project Name: PBL1_Genius_Project
     Target Devices: FPGA
-    Tool Versions: Xilinx Vivado 2025
+    Tool Versions: Xilinx Vivado 2024.1
     Description: Idle  
 
     Dependencies: None
