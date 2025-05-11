@@ -1,28 +1,25 @@
-`timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: QuIIN - CIMATEC
-// Engineer: Paulo Cezar da PAixao
-// 
-// Create Date: 05/05/2025 01:20:05 PM
-// Design Name: 
-// Module Name: controls_if
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
+/**
+    Company: 
+    Engineer: Paulo Cezar da Paixao
+    Create Date: 05/05/2025 01:20:05 PM
+    Design Name: Simon Game (Genius)
+    Module Name: controls_if interface
+    Project Name: PBL1_Genius_Project
+    Target Devices: FPGA
+    Tool Versions: Xilinx Vivado 2025
+    Description: Chip abstraction 
 
+    Dependencies: None
+    
+    Revision: 2025.5.1
+    Revision 0.01 - File Created
+**/
 
-// control_if.sv - Interface for data communication between modules
-//-----------------------------------------------------
+//----------------------------------------------------------------------------- 
+// control_if.sv - Interface for control communication between modules
+//-----------------------------------------------------------------------------
 interface controls_if;
+
     //-------------------------------------------------
     // Control Signals with Initialization
     //-------------------------------------------------

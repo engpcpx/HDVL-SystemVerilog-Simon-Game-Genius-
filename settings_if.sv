@@ -1,5 +1,23 @@
-// settings_if.sv - Interface for system settings
-//-----------------------------------------------------
+/**
+    Company: 
+    Engineer: Paulo Cezar da Paixao
+    Create Date: 05/05/2025 01:20:05 PM
+    Design Name: Simon Game (Genius)
+    Module Name: settings interface
+    Project Name: PBL1_Genius_Project
+    Target Devices: FPGA
+    Tool Versions: Xilinx Vivado 2025
+    Description: Chip abstraction 
+
+    Dependencies: None
+    
+    Revision: 2025.5.1
+    Revision 0.01 - File Created
+**/
+
+//----------------------------------------------------------------------------- 
+// settings_if.sv - Interface for settings communication between modules
+//-----------------------------------------------------------------------------
 interface settings_if;
     //-----------------------------------------
     // Configuration Parameters
