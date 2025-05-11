@@ -1,6 +1,6 @@
 /**
 Additional Comments:
-    Company: 
+    Company:
     Engineer: Paulo Cezar da Paixao
     Create Date: Create Date: 05/05/2025 03:48:34 PM
     Design Name: Simon Game (Genius)
