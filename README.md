@@ -1,21 +1,42 @@
-# HDVL - SystemVerilog - Simon-Game
-SystemVerilog-based implementation of the classic Simon (Genius) memory game, designed to run on a RISC-V compatible hardware platform. Includes RTL design, testbenches, and simulation instructions.
-
 # Simon Game (Genius) on RISC-V – SystemVerilog Implementation
 
-This repository contains a SystemVerilog-based RTL design of the classic **Simon (Genius)** memory game, adapted to run on a custom **RISC-V** hardware platform. The game challenges users to replicate increasingly complex sequences of lights and sounds, testing memory and reaction.
+SystemVerilog-based implementation of the classic **Simon (Genius)** memory game, designed to run on a RISC-V compatible hardware platform. This project includes a complete RTL design, modular architecture, and self-checking testbenches for functional verification.
 
-## 🧠 Project Overview
+---
+
+## Project Overview
 
 - **Language**: SystemVerilog (IEEE 1800-2017)
-- **Target Architecture**: RISC-V (RV32I subset)
 - **Design Style**: RTL (Register Transfer Level)
-- **Testing**: Self-checking Testbenches + Simulation
+- **Target Architecture**: RISC-V (RV32I subset)
+- **Verification**: Self-checking Testbenches + Simulation
+- **Coding Style**: Modular and interface-oriented (using `interface` and `modport`)
+- **Tool Compatibility**: Icarus Verilog, ModelSim, etc.
 
-The design includes all essential logic to implement the Simon game mechanics:
+---
+
+## Features
+
 - Random sequence generation
-- Pattern playback using LEDs and audio tones
-- User input matching via push buttons
-- State machine to control game flow
+- Playback of patterns using LEDs
+- User input via push buttons
+- FSM-based control logic
+- 7-segment display output
+- Modular code using SystemVerilog interfaces
 
-## 📁 Repository Structure
+---
+
+## Project Structure
+
+```text
+simon-game/
+├── chip_module.sv             # Top-level chip module (instantiates all components)
+├── control_if.sv              # User control interface (buttons, status, start/reset)
+├── settings_if.sv             # Configuration interface (clock, reset, level)
+├── fsm_module.sv              # Main FSM that manages game flow
+├── generator_module.sv        # Sequence generation logic
+├── idle_module.sv             # Handles idle state behavior
+├── display_7seg_module.sv     # 7-segment display control module
+├── sim/                       # Testbench directory
+│   └── simon_tb.sv            # Functional testbench (self-checking)
+└── README.md                  # This file
