@@ -47,6 +47,11 @@
 // ----------------------------------------------------------------------------
 `timescale 1ns / 1ps
 module fsm_module(
+
+    // Interface buses
+    settings_if.bidir settings,               // Interface producer to write on settings
+    controls_if.bidir controls,               // Interface producer to write on controls
+    
     // Clock and Control Inputs
     input  logic         i_clk,               // FPGA clock [200 MHz]
     input  logic         i_reset_button,      // Active-high reset button

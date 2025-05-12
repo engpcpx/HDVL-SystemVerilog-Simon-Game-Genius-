@@ -54,43 +54,32 @@ Additional Comments:
 // idle_module.sv - Handles the IDLE state
 //-----------------------------------------------------------------------------
 `timescale 1ns / 1ps
-
 module idle_module(
     // Interface buses
-    settings_if.producer settings,     // Changed to producer to write settings
-    controls_if.producer controls,     // Controls interface (write-only)
+    settings_if.producer settings,     // Interface producer to write on settings
+    controls_if.producer controls,     // Interface producer to write on controls
 
     // Input ports
     input  logic       i_clk,          // System clock
     input  logic       i_enable,       // Enable signal (active-high)
     input  logic       i_start,        // Start signal (active-high)
-    input  logic [1:0] i_mode,         // Mode configuration
-    input  logic [1:0] i_level,        // Level configuration
-    input  logic [1:0] i_speed,        // Speed configuration
      
     // Output ports
-    output logic       o_active,       // State completion/output value
-    output logic       o_done          // State completion/output value
+    output logic       o_active,       // State active indicator
+    output logic       o_done          // State completion indicator
 );
 
     // Module logic
     //-------------------------------------------------
- 
-    // assign settings signals to settings interface
     always_ff @(posedge i_clk) begin
         if(i_enable == 1'b1) begin          
-            // Write game params to settings interface 
-            settings.mode  <= i_mode;
-            settings.level <= i_level;
-            settings.speed <= i_speed;
-            
             // Write game params to controls interface 
             if(i_start == 1'b1) begin
                 controls.ready <= 1'b1; 
-                o_done        <= 1'b1;  
+                o_done         <= 1'b1;  
             end else begin
                 controls.ready <= 1'b0;          
-                o_done        <= 1'b0; 
+                o_done         <= 1'b0; 
             end
             
             o_active <= 1'b1; 
@@ -102,7 +91,7 @@ module idle_module(
             
             controls.ready <= 1'b0;
             o_active       <= 1'b0; 
-            o_done        <= 1'b0;
+            o_done         <= 1'b0;
         end
     end
 endmodule

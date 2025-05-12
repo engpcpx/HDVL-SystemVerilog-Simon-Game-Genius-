@@ -26,6 +26,11 @@ SystemVerilog-based implementation of the classic **Simon (Genius)** memory game
 
 ---
 
+# Resources
+    This application make use interface bus structure to transfer data betueen modules.
+    
+---
+
 ## Project Structure
 
 ```text
