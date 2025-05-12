@@ -7,95 +7,111 @@
     Project Name: PBL1_Genius_Project
     Target Devices: FPGA
     Tool Versions: Xilinx Vivado 2024.1
-    Description: Chip abstraction 
+    Description: 
+        Interface for control communication between game modules.
+        Handles color sequences, user input, scoring and game state.
 
     Dependencies: None
     
-    Revision: 2025.5.1
+    Revision: 2025.5.2
     Revision 0.01 - File Created
+    Revision 0.02 - Signal organization and completeness check
 **/
 
+/**
+Additional Comments:
+    @file scontrols_if.sv
+    @brief System Game configuration control interface
+  
+    @Description: Control interface for Simon Game (Genius) 
+                Handles game sequences, user input, scoring and game state
+    
+    @details
+        Signals:
+            - Game configuration: User inputs and colors
+            - Game state: Current game status and display
+            - Player sequences: Stored patterns for both players
+            - Scoring system: Player scores and update triggers
+        
+        Modports:
+            - producer: Game controller perspective
+            - consumer: Input handler perspective 
+            - bidir: Score manager perspective
+            - tb: Testbench perspective
+ **/
+
 //----------------------------------------------------------------------------- 
-// control_if.sv - Interface for control communication between modules
+// cotrol_if.sv - Interface for control communication between modules
 //-----------------------------------------------------------------------------
 interface controls_if;
-
-    //-------------------------------------------------
-    // Control Signals with Initialization
-    //-------------------------------------------------
-    // Input Controls
-    logic [3:0]  ctrl_incolor = 4'b0;         // Input color [0:Green, 1:Yellow, 2:Red, 3:Blue]
-    logic [63:0] ctrl_user_seq = 64'h0;       // User input sequence
-    logic [31:0] ctrl_user_pos = 32'd0;       // Current position in user sequence
-    logic        ctrl_score_update = 1'b0;    // Score update trigger
+    //----------------------------------------------
+    // Game Configuration Signals
+    //----------------------------------------------
+    logic [3:0]  incolor  = '0;    // Input color [0:Green, 1:Yellow, 2:Red, 3:Blue]
+    logic [63:0] user_seq = '0;    // User input sequence (64-bit packed array)
+    logic [31:0] user_pos = '0;    // Current position in user sequence [0-31]
     
-    // Output Controls
-    logic        ctrl_ready = 1'b0;           // System ready indicator
-    logic [3:0]  ctrl_outcolor = 4'b0;        // Output color display
-    logic [7:0]  ctrl_score_p1 = 8'h0;        // Player 1 score
-    logic [7:0]  ctrl_score_p2 = 8'h0;        // Player 2 score
-    logic        ctrl_correct = 1'b0;         // Sequence match flag
+    //----------------------------------------------
+    // Game State Signals
+    //----------------------------------------------
+    logic        start    = '0;    // System ready indicator (active high)
+    logic        ready    = '0;    // Game ready for input (active high)
+    logic [3:0]  outcolor = '0;    // Output color display [0:Green, 1:Yellow, 2:Red, 3:Blue]
+    logic        correct  = '0;    // Sequence match flag (1:match, 0:no match)
     
-    // Game Sequence Data
-    logic [31:0] ctrl_seq_p1 = 32'h0;         // Player 1 sequence (32 colors max)
-    logic [31:0] ctrl_seq_p2 = 32'h0;         // Player 2 sequence (32 colors max)
-    logic [63:0] ctrl_seq_len = 64'd0;        // Current sequence length
-    logic [31:0] ctrl_seq_pos = 32'd0;        // Current sequence position
+    //----------------------------------------------
+    // Player Sequences
+    //----------------------------------------------
+    logic [31:0] seq_p1   = '0;    // Player 1 sequence (32 colors max)
+    logic [31:0] seq_p2   = '0;    // Player 2 sequence (32 colors max)
+    logic [63:0] seq_len  = '0;    // Current sequence length [1-64]
+    logic [31:0] seq_pos  = '0;    // Current sequence position [0-31]
+    
+    //----------------------------------------------
+    // Scoring System
+    //----------------------------------------------
+    logic [7:0]  score_p1 = '0;    // Player 1 score (0-255)
+    logic [7:0]  score_p2 = '0;    // Player 2 score (0-255)
+    logic        score_update = '0; // Score update trigger (pulse)
 
-    //-------------------------------------------------
+    //----------------------------------------------
     // Modport Definitions
-    //-------------------------------------------------
+    //----------------------------------------------
     
-    // Producer Modport (Game Controller)
+    // Game Controller Perspective (Producer)
     modport producer (
-        output ctrl_seq_p1,
-        output ctrl_seq_p2,
-        output ctrl_seq_len,
-        output ctrl_outcolor,
-        output ctrl_ready,
-        output ctrl_score_p1,
-        output ctrl_score_p2,
-        output ctrl_correct,
-        input  ctrl_incolor,
-        input  ctrl_user_seq,
-        input  ctrl_user_pos,
-        input  ctrl_score_update,
-        input  ctrl_seq_pos
+        output start, ready, outcolor, correct,
+        output seq_p1, seq_p2, seq_len, seq_pos,
+        output score_p1, score_p2,
+        input  incolor, user_seq, user_pos,
+        input  score_update
     );
     
-    // Consumer Modport (Input Handler)
+    // Input Handler Perspective (Consumer)
     modport consumer (
-        input  ctrl_seq_p1,
-        input  ctrl_seq_p2,
-        input  ctrl_seq_len,
-        input  ctrl_outcolor,
-        input  ctrl_ready,
-        input  ctrl_score_p1,
-        input  ctrl_score_p2,
-        input  ctrl_correct,
-        input  ctrl_seq_pos,
-        output ctrl_incolor,
-        output ctrl_user_seq,
-        output ctrl_user_pos,
-        output ctrl_score_update
+        input  start, outcolor, correct,
+        input  seq_p1, seq_p2, seq_len, seq_pos,
+        input  score_p1, score_p2,
+        output incolor, user_seq, user_pos,
+        output score_update
     );
     
-    // Bidirectional Modport (Score Manager)
+    // Score Manager Perspective (Bidirectional)
     modport bidir (
-        inout ctrl_seq_p1,
-        inout ctrl_seq_p2,
-        inout ctrl_seq_len,
-        inout ctrl_outcolor,
-        inout ctrl_ready,
-        inout ctrl_score_p1,
-        inout ctrl_score_p2,
-        inout ctrl_incolor,
-        inout ctrl_user_seq,
-        inout ctrl_user_pos,
-        inout ctrl_score_update,
-        inout ctrl_correct,
-        inout ctrl_seq_pos
+        inout seq_p1, seq_p2,
+        inout score_p1, score_p2,
+        inout seq_len, seq_pos,
+        inout start, ready, correct,
+        inout outcolor
+    );
+    
+    // Testbench Perspective
+    modport tb (
+        output incolor, user_seq, user_pos, score_update,
+        input  start, ready, outcolor, correct,
+        input  score_p1, score_p2,
+        input  seq_p1, seq_p2, seq_len, seq_pos,
+        inout  seq_p1, seq_p2  // Allow testbench to force sequences
     );
 
 endinterface
-

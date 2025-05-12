@@ -1,13 +1,15 @@
+
+
 /**
 Additional Comments:
-    Company:
+    Company: 
     Engineer: Paulo Cezar da Paixao
     Create Date: Create Date: 05/05/2025 03:48:34 PM
     Design Name: Simon Game (Genius)
     Module Name: idle_module
     Project Name: PBL1_Genius_Project
     Target Devices: FPGA
-    Tool Versions: Xilinx Vivado 2024.1
+    Tool Versions: Xilinx Vivado 2025
     Description: Idle  
 
     Dependencies: None
