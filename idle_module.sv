@@ -1,5 +1,3 @@
-
-
 /**
 Additional Comments:
     Company: 
@@ -50,13 +48,18 @@ Additional Comments:
                    - 2'b10: Fast
                    - 2'b11: Turbo
   @param o_value   6-bit state completion/output value
- **/
+**/
 
 //-----------------------------------------------------------------------------
 // idle_module.sv - Handles the IDLE state
 //-----------------------------------------------------------------------------
 `timescale 1ns / 1ps
+
 module idle_module(
+    // Interface buses
+    settings_if.producer settings,     // Changed to producer to write settings
+    controls_if.producer controls,     // Controls interface (write-only)
+
     // Input ports
     input  logic       i_clk,          // System clock
     input  logic       i_enable,       // Enable signal (active-high)
@@ -66,25 +69,40 @@ module idle_module(
     input  logic [1:0] i_speed,        // Speed configuration
      
     // Output ports
-    output logic [5:0] o_value         // State completion/output value
+    output logic       o_active,       // State completion/output value
+    output logic       o_done          // State completion/output value
 );
 
     // Module logic
     //-------------------------------------------------
-    // o_value[0]: Mode setting signal
-    // o_value[1]: Level setting signal
-    // o_value[2]: Speed setting signal
-    // o_value[3]: Active module signal
-    // o_value[4]: Done module signal
-    
-    // assign settings signals
-    always_ff @(posedge i_clk && i_enable == 1'b1) begin
-        // Update outputs
-        o_value[0] <= i_enable;
-        o_value[1] <= i_mode;
-        o_value[2] <= i_level;
-        o_value[3] <= i_speed;
-        o_value[4] <= 1'b1;
-        o_value[5] <= 1'b1;    
-    end    
+ 
+    // assign settings signals to settings interface
+    always_ff @(posedge i_clk) begin
+        if(i_enable == 1'b1) begin          
+            // Write game params to settings interface 
+            settings.mode  <= i_mode;
+            settings.level <= i_level;
+            settings.speed <= i_speed;
+            
+            // Write game params to controls interface 
+            if(i_start == 1'b1) begin
+                controls.ready <= 1'b1; 
+                o_done        <= 1'b1;  
+            end else begin
+                controls.ready <= 1'b0;          
+                o_done        <= 1'b0; 
+            end
+            
+            o_active <= 1'b1; 
+        end else begin
+            // Disabled state
+            settings.mode  <= 2'b0;    // Default values
+            settings.level <= 1'b0;
+            settings.speed <= 2'b0;
+            
+            controls.ready <= 1'b0;
+            o_active       <= 1'b0; 
+            o_done        <= 1'b0;
+        end
+    end
 endmodule
