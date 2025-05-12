@@ -71,9 +71,11 @@ set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "Creating in-memory project" END { }
 OPTRACE "Adding files" START { }
 read_verilog -library xil_defaultlib -sv {
+  /home/paulocezar/Documentos/HDVL_projects/HDVL-SystemVerilog-Simon-Game-Genius-/control_if.sv
   /home/paulocezar/Documentos/HDVL_projects/HDVL-SystemVerilog-Simon-Game-Genius-/fsm_module.sv
   /home/paulocezar/Documentos/HDVL_projects/HDVL-SystemVerilog-Simon-Game-Genius-/generator_module.sv
   /home/paulocezar/Documentos/HDVL_projects/HDVL-SystemVerilog-Simon-Game-Genius-/idle_module.sv
+  /home/paulocezar/Documentos/HDVL_projects/HDVL-SystemVerilog-Simon-Game-Genius-/settings_if.sv
   /home/paulocezar/Documentos/HDVL_projects/HDVL-SystemVerilog-Simon-Game-Genius-/chip_module.sv
 }
 OPTRACE "Adding files" END { }

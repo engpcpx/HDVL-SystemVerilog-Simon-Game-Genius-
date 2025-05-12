@@ -28,10 +28,10 @@ interface controls_if;
     );
     
     // Testbench modport
-    modport tb (
-        output ready,
-        output value,
-        input ready,
-        input value
+    //modport tb (
+    //    output ready,
+    //    output value,
+    //    input ready,
+    //    input value
     );
 endinterface
