@@ -34,7 +34,7 @@ Additional Comments:
 
 module generator_module (
     // Interface buses
-    controls_if.producer controls,  // Controls interface (produces random number)
+    controls_if.bidir controls,  // Controls interface (consumer ready and produces random number)
     
     // Input ports
     input  logic    i_clk,          // System clock
@@ -54,6 +54,7 @@ module generator_module (
 
     // Continuous module active status
     assign o_active = i_enable;
+  
 
     // Seed counter - increments continuously when enabled
     always_ff @(posedge i_clk) begin
@@ -70,7 +71,8 @@ module generator_module (
 
     // Random number generation logic
     always_ff @(posedge i_clk) begin
-        generation_done <= 1'b0;
+        generation_done <= 1'b0;rigger
+        i_trigger <= controls.ready;
         
         if (i_enable && i_trigger) begin
             // Generate random number 1-4
