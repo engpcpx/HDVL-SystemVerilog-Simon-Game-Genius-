@@ -71,7 +71,7 @@ module generator_module (
 
     // Random number generation logic
     always_ff @(posedge i_clk) begin
-        generation_done <= 1'b0;rigger
+        generation_done <= 1'b0;
         i_trigger <= controls.ready;
         
         if (i_enable && i_trigger) begin

@@ -3,8 +3,8 @@
 # SW Build 5076996 on Wed May 22 18:36:09 MDT 2024
 # IP Build 5075265 on Wed May 22 21:45:21 MDT 2024
 # SharedData Build 5076995 on Wed May 22 18:29:18 MDT 2024
-# Start of session at: Mon May 12 16:54:15 2025
-# Process ID: 43861
+# Start of session at: Tue May 13 08:04:29 2025
+# Process ID: 75826
 # Current directory: /home/paulocezar/Documentos/HDVL_projects/HDVL-SystemVerilog-Simon-Game-Genius-/pbl1_genius_project/pbl1_genius_project.runs/synth_1
 # Command line: vivado -log chip_module.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source chip_module.tcl
 # Log file: /home/paulocezar/Documentos/HDVL_projects/HDVL-SystemVerilog-Simon-Game-Genius-/pbl1_genius_project/pbl1_genius_project.runs/synth_1/chip_module.vds
@@ -13,12 +13,12 @@
 # Platform          :Ubuntu
 # Operating System  :Ubuntu 24.04.2 LTS
 # Processor Detail  :AMD Ryzen 5 PRO 7530U with Radeon Graphics
-# CPU Frequency     :1397.447 MHz
+# CPU Frequency     :1397.072 MHz
 # CPU Physical cores:6
 # CPU Logical cores :12
 # Host memory       :16134 MB
 # Swap memory       :4294 MB
 # Total Virtual     :20429 MB
-# Available Virtual :8253 MB
+# Available Virtual :10168 MB
 #-----------------------------------------------------------
 source chip_module.tcl -notrace

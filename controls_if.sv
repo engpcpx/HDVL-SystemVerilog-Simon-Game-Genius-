@@ -33,5 +33,5 @@ interface controls_if;
     //    output value,
     //    input ready,
     //    input value
-    );
+    //;
 endinterface
