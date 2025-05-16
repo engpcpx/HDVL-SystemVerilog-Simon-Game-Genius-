@@ -1,4 +1,4 @@
-# Simon Game (Genius) on RISC-V – SystemVerilog Implementation
+# PBL1 - Simon Game (Genius) – SystemVerilog Implementation
 
 SystemVerilog-based implementation of the classic **Simon (Genius)** memory game, designed to run on a RISC-V compatible hardware platform. This project includes a complete RTL design, modular architecture, and self-checking testbenches for functional verification.
 
